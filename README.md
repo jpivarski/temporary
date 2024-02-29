@@ -1,4 +1,4 @@
-How to do it:
+**How to do it:**
 
 The `query-test` GitHub App has an endpoint to a server that is listening to POST requests. That server has Python installed with the `jwt` library. It uses `jwt` to convert the private key associated with the GitHub App into a JWT token, which has a short expiration date (10 minutes). That token can be made like this:
 
@@ -99,3 +99,11 @@ server_thread.start()
 ```
 
 where `JWT_TOKEN` is the JWT token returned by the first process. When anyone creates a Discussion comment, this `do_POST` runs, and the `requests.post` creates another Discussion comment. Although it's possible to reply to a top-level comment by its `node_id`, there doesn't seem to be any way to respond to a reply. I'd want to provide the GitHub Global Node ID of the parent, but I only have a numeric (database) ID for the parent, and there's no way to convert between them. GraphQL, which is the only way to make Discussion comments (without a "team slug"?!?), requires node ids, and while the trigger event gives me a node id for a top-level comment, it does not give me a node id for the parent of a reply (i.e. the top-level comment that this should be sent to). Nesting a reply in a reply is not allowed.
+
+**Update:**
+
+This could be a triggered GitHub Action, rather than an independent service (e.g. on AWS) that we have to maintain.
+
+https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#discussion_comment
+
+I don't know what happens with the webhook URL, then. I can't set that to nothing.
