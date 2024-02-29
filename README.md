@@ -106,4 +106,4 @@ This could be a triggered GitHub Action, rather than an independent service (e.g
 
 https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#discussion_comment
 
-I don't know what happens with the webhook URL, then. I can't set that to nothing.
+The webhook URL can then be set to "inactive."
